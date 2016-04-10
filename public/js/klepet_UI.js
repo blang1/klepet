@@ -25,8 +25,8 @@ function procesirajVnosUporabnika(klepetApp, socket) {
   } else {
     sporocilo = filtirirajVulgarneBesede(sporocilo);
     klepetApp.posljiSporocilo(trenutniKanal, sporocilo);
+    $('#sporocila').append(divElementEnostavniTekst(sporocilo));
     $('#sporocila').append(dodajSlika(sporocilo));
-    //$('#sporocila').append(divElementEnostavniTekst(sporocilo));
     $('#sporocila').append(dodajVideo(sporocilo));
     $('#sporocila').scrollTop($('#sporocila').prop('scrollHeight'));
   }
@@ -89,7 +89,7 @@ $(document).ready(function() {
   socket.on('sporocilo', function (sporocilo) {
     //$('#sporocila').append(sporocilo.besedilo);
     var novElement = divElementEnostavniTekst(sporocilo.besedilo);
-    //$('#sporocila').append(novElement);
+    $('#sporocila').append(novElement);
     var novo = dodajSlika(sporocilo.besedilo);
     $('#sporocila').append(novo);
     var novo1 = dodajVideo(sporocilo.besedilo);
@@ -158,19 +158,19 @@ function dodajSmeske(vhodnoBesedilo) {
 function dodajSlika(vhodnoBesedilo){
   var matching = /https?:\/\/.*?\.(jpg|png|gif)/g;
   var images = vhodnoBesedilo.match(matching);
-  
+  var n="";
   for(var m in images){
   	if(m==0)
   	  vhodnoBesedilo= vhodnoBesedilo+'<br>';
   	var string = " <img src='"+images[m]+"' class=\"slika\" />";
   	//console.log(string);
   	if(string.indexOf("http://sandbox.lavbic.net/teaching/OIS/gradivo/")==-1)
-  	  vhodnoBesedilo=vhodnoBesedilo+string;
+  	  n=n+string;//vhodnoBesedilo=vhodnoBesedilo+string;
 
   }
   if(images!=null) {
     //console.log(vhodnoBesedilo);
-    return $('<div style="font-weight: bold"></div>').html(vhodnoBesedilo);
+    return $('<div style="font-weight: bold"></div>').html(n);
   }
    
 }
@@ -178,7 +178,7 @@ function dodajSlika(vhodnoBesedilo){
 function dodajVideo(vhodnoBesedilo){
   var link = /(?:(?:http|https):\/\/www\.youtube\.com\/watch\?v=)(.{11})/gi;
   var youtube = vhodnoBesedilo.match(link);
-
+  var n="";
 
   for(var i in youtube){
   	if(i==0)
@@ -186,12 +186,12 @@ function dodajVideo(vhodnoBesedilo){
   
   	youtube[i] = youtube[i].replace(/(?:(?:http|https):\/\/www\.youtube\.com\/watch\?v=)(.{11})/gi, '$1');
   	var string = "<iframe class=\"video\" src='https://www.youtube.com/embed/"+youtube[i]+"' allowfullscreen></iframe>";
-  	vhodnoBesedilo=vhodnoBesedilo+string;
+  	n=n+string;//vhodnoBesedilo=vhodnoBesedilo+string;
 
   }
   if(youtube!=null) {
     //console.log(vhodnoBesedilo);
-    return $('<div style="font-weight: bold"></div>').html(vhodnoBesedilo);
+    return $('<div style="font-weight: bold"></div>').html(n);
   } 
    
 }
