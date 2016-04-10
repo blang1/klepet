@@ -54,6 +54,12 @@ a {
   margin-right: 1em;
 }
 
+.video{
+  width: 200px;
+  height: 150px;
+  margin-left:20px;
+}
+
 #pomoc {
   font: 10px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
