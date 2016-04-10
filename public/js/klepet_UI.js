@@ -25,12 +25,9 @@ function procesirajVnosUporabnika(klepetApp, socket) {
   } else {
     sporocilo = filtirirajVulgarneBesede(sporocilo);
     klepetApp.posljiSporocilo(trenutniKanal, sporocilo);
-<<<<<<< HEAD
     $('#sporocila').append(dodajSlika(sporocilo));
-=======
     //$('#sporocila').append(divElementEnostavniTekst(sporocilo));
     $('#sporocila').append(dodajVideo(sporocilo));
->>>>>>> youtube
     $('#sporocila').scrollTop($('#sporocila').prop('scrollHeight'));
   }
 
@@ -90,14 +87,13 @@ $(document).ready(function() {
   });
 
   socket.on('sporocilo', function (sporocilo) {
-    //var novElement = divElementEnostavniTekst(sporocilo.besedilo);
+    //$('#sporocila').append(sporocilo.besedilo);
+    var novElement = divElementEnostavniTekst(sporocilo.besedilo);
     //$('#sporocila').append(novElement);
-<<<<<<< HEAD
     var novo = dodajSlika(sporocilo.besedilo);
     $('#sporocila').append(novo);
-=======
-    $('#sporocila').append(dodajVideo(sporocilo.besedilo));
->>>>>>> youtube
+    var novo1 = dodajVideo(sporocilo.besedilo);
+    $('#sporocila').append(novo1);
   });
   
   socket.on('kanali', function(kanali) {
@@ -157,14 +153,12 @@ function dodajSmeske(vhodnoBesedilo) {
       preslikovalnaTabela[smesko] + "' />");
   }
   return vhodnoBesedilo;
-<<<<<<< HEAD
 }
-=======
-}
+
 function dodajSlika(vhodnoBesedilo){
   var matching = /https?:\/\/.*?\.(jpg|png|gif)/g;
-  images = vhodnoBesedilo.match(matching);
-
+  var images = vhodnoBesedilo.match(matching);
+  
   for(var m in images){
   	if(m==0)
   	  vhodnoBesedilo= vhodnoBesedilo+'<br>';
@@ -177,17 +171,14 @@ function dodajSlika(vhodnoBesedilo){
   if(images!=null) {
     //console.log(vhodnoBesedilo);
     return $('<div style="font-weight: bold"></div>').html(vhodnoBesedilo);
-  } else {
-    return $('<div style="font-weight: bold;"></div>').text(vhodnoBesedilo);
   }
    
 }
-<<<<<<< HEAD
->>>>>>> slike
-=======
+
 function dodajVideo(vhodnoBesedilo){
   var link = /(?:(?:http|https):\/\/www\.youtube\.com\/watch\?v=)(.{11})/gi;
   var youtube = vhodnoBesedilo.match(link);
+
 
   for(var i in youtube){
   	if(i==0)
@@ -201,9 +192,6 @@ function dodajVideo(vhodnoBesedilo){
   if(youtube!=null) {
     //console.log(vhodnoBesedilo);
     return $('<div style="font-weight: bold"></div>').html(vhodnoBesedilo);
-  } else {
-    return $('<div style="font-weight: bold;"></div>').text(vhodnoBesedilo);
-  }
+  } 
    
 }
->>>>>>> youtube
