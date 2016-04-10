@@ -59,7 +59,18 @@ function filtirirajVulgarneBesede(vhod) {
 
 $(document).ready(function() {
   var klepetApp = new Klepet(socket);
-
+  
+  socket.on('dregljaj', function(rezultat){
+    if(rezultat.dregljaj){
+      $('#vsebina').jrumble();
+      //console.log("DOAGJA");
+      $('#vsebina').trigger('startRumble');
+      setTimeout(function() {
+        $('#vsebina').trigger('stopRumble');
+      }, 1500);
+    }
+  });
+  
   socket.on('vzdevekSpremembaOdgovor', function(rezultat) {
     var sporocilo;
     if (rezultat.uspesno) {
