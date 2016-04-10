@@ -12,7 +12,7 @@ function divElementEnostavniTekst(sporocilo) {
 }
 
 function divElementHtmlTekst(sporocilo) {
-  sporocilo=dodajSlika(sporocilo);
+  //sporocilo=dodajSlika(sporocilo);
   return $('<div></div>').html('<i>' + sporocilo + '</i>');
 }
 
@@ -82,9 +82,7 @@ $(document).ready(function() {
   socket.on('sporocilo', function (sporocilo) {
     var novElement = divElementEnostavniTekst(sporocilo.besedilo);
     $('#sporocila').append(novElement);
-    var novo = dodajSlika(sporocilo.besedilo);
     
-    $('#sporocila').append(novo+"");
   
   });
   
@@ -109,6 +107,11 @@ $(document).ready(function() {
     for (var i=0; i < uporabniki.length; i++) {
       $('#seznam-uporabnikov').append(divElementEnostavniTekst(uporabniki[i]));
     }
+    $('#seznam-uporabnikov div').click(function() {
+      
+      $('#poslji-sporocilo').val('/zasebno "'+$(this).text()+'"');
+      $('#poslji-sporocilo').focus();
+    });
   });
 
   setInterval(function() {
@@ -140,31 +143,4 @@ function dodajSmeske(vhodnoBesedilo) {
       preslikovalnaTabela[smesko] + "' />");
   }
   return vhodnoBesedilo;
-}
-
-function dodajSlika(vhodnoBesedilo){
-  var matching = /https?:\/\/.*?\.(jpg|png|gif)/g;
-  images = vhodnoBesedilo.match(matching);
-
-  for(var m in images){
-  	//var n="";
-  	var string = " <img src='"+images[m]+"' class=\"slika\" />";
-  	//console.log(string);
-  	if(string.indexOf("http://sandbox.lavbic.net/teaching/OIS/gradivo/")==-1)
-  	  $('#sporocila').append(string);
-    vhodnoBesedilo=vhodnoBesedilo+string;
-  	//console.log(vhodnoBesedilo);
-
-  }
-  if(images!=null) {
-    console.log(vhodnoBesedilo);
-    return $('<div style="font-weight: bold"></div>').html(vhodnoBesedilo);
-  } else {
-    return $('<div style="font-weight: bold;"></div>').text(vhodnoBesedilo);
-  }
-  //console.log(vhodnoBesedilo);
-  
-  //return vhodnoBesedilo;
-   
-   
 }
