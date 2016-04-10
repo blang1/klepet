@@ -61,9 +61,16 @@ a {
   margin-right: 1em;
 }
 
+<<<<<<< HEAD
 .slika{
   width: 200px;
   padding-left: 20px; 
+=======
+.video{
+  width: 200px;
+  height: 150px;
+  margin-left:20px;
+>>>>>>> youtube
 }
 
 #pomoc {
